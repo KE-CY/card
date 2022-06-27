@@ -6,12 +6,20 @@
 ## Api 
 ### User
 1. Get all user -> Get: `/user`
+
+![image](https://user-images.githubusercontent.com/54132183/175982285-39cb52b5-332c-4be7-bdd0-40ff0626cf3c.png)
+
 2. Create user -> Post: `/user`
 3. login -> Post: `/user/login`
+
+![image](https://user-images.githubusercontent.com/54132183/175982260-fc06ba31-8152-41ee-ad6b-02f302cc84fd.png)
+
 
 ### Card
 1. Get all card -> Get: `/card`
 1. Create card -> Post: `/card`
+
+![image](https://user-images.githubusercontent.com/54132183/175982338-5e969073-b27d-4c28-8e58-7df9f8921367.png)
 
 ## Docker run
 ```bash
