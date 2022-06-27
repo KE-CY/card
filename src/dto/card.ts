@@ -1,9 +1,6 @@
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateUserDTO {
-    @IsString()
-    @IsNotEmpty()
-    readonly image: string;
+export class CreateCardDTO {
 
     @IsString()
     @IsNotEmpty()

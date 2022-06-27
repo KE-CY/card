@@ -6,7 +6,7 @@ export interface ICardParams {
     introduction?: string;
 }
 
-export interface ICardCreateParams {
+export interface ICardCreateParams extends ICardParams {
     image: string;
     product: string;
     price: number;

@@ -13,6 +13,11 @@ export class UserService {
         return await this.userRepository.find();
     }
 
+    async find(username: string): Promise<boolean> {
+        const check = await this.userRepository.findOne({ where: { username: username } });
+        return check ? true : false;
+    }
+
     async create(u: IUserCreateParams): Promise<User> {
         u.password = encrypt(u.password)
         return await this.userRepository.save(u);
@@ -23,7 +28,7 @@ export class UserService {
         const user = await this.userRepository.findOne({ where: u });
         return user ? true : false;
     }
-    
+
     async login(u: IUserCreateParams): Promise<boolean> {
         u.password = encrypt(u.password)
         const userlogin = await this.userRepository.find({ where: u });

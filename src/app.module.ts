@@ -10,7 +10,7 @@ import { CardModule } from './module/card';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
-    host: 'db',
+    host: 'localhost',
     port: 3306,
     username: 'test',
     password: 'test',
@@ -19,7 +19,7 @@ import { CardModule } from './module/card';
     entities: [User, Card],
     synchronize: true,
   }),
-    UserModule, CardModule],
+    UserModule, CardModule, AppModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,7 +1,8 @@
-import { Controller, Get, UseInterceptors , HttpStatus, Post, Body, Response, UploadedFile, Delete } from '@nestjs/common';
+import { Controller, Get, UseInterceptors, HttpStatus, Post, Body, Response, UploadedFile, Delete } from '@nestjs/common';
 import { CreateCardDTO } from 'src/dto/card';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CardService } from 'src/service/card';
+import { ICardCreateParams } from 'src/interafaces/card';
 
 @Controller('card')
 export class CardController {
@@ -16,10 +17,10 @@ export class CardController {
 
     @Post()
     @UseInterceptors(FileInterceptor('image'))
-    async create(@Body() createUserDTO: CreateCardDTO, @UploadedFile() image: Express.Multer.File,@Response() res) {
+    async create(@Body() createUserDTO: CreateCardDTO, @UploadedFile() image: Express.Multer.File, @Response() res) {
         try {
-            // image 檔案名稱修改?
-            await this.cardService.create(createUserDTO);
+            const card: ICardCreateParams = { product: createUserDTO.product, price: createUserDTO.price, introduction: createUserDTO.introduction, image: image.filename };
+            await this.cardService.create(card);
             res.status(HttpStatus.OK).json({ status: 'success' });
         } catch (error) {
             console.error(error);

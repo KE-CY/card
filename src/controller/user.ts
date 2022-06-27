@@ -1,10 +1,13 @@
 import { Controller, Get, Param, HttpStatus, Post, Body, Response, Patch, Delete } from '@nestjs/common';
 import { CreateUserDTO } from 'src/dto/user';
+import { AuthService } from 'src/service/auth';
 import { UserService } from 'src/service/user';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) { }
+    constructor(
+        private readonly userService: UserService,
+        private readonly authService: AuthService) { }
 
     @Get()
     async getAll(@Response() res) {
@@ -27,8 +30,12 @@ export class UserController {
     @Post('/login')
     async login(@Body() createUserDTO: CreateUserDTO, @Response() res) {
         try {
-            await this.userService.login(createUserDTO);
-            res.status(HttpStatus.OK).json({ status: 'success' });
+            const checkUser = await this.userService.login(createUserDTO);
+            if (!checkUser) {
+                res.status(HttpStatus.NOT_FOUND);
+            }
+            const token = await this.authService.createToken(createUserDTO.username)
+            res.status(HttpStatus.OK).json(token);
         } catch (error) {
             console.error(error);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR);
