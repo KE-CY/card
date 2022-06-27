@@ -21,6 +21,6 @@ export class AuthService {
     async validateUser(payload) {
         // jwt decoded後會得到上面的user object
         const user = await this.userService.find(payload.username);
-        return { user: payload.username };
+        return user;
     }
 }
